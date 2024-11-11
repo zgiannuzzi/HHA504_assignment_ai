@@ -7,10 +7,10 @@
 - See attached speech_rec.ipynb for output on text reconginition 
 ### Steps 
 
-1. Install google cloud speech sdk
-2. imported cloud sppech and cloud text recognition
-3. Added my project ID didnt include for security purposes 
-4. Added my link and ran program succesfully 
+1. Installed google cloud speech sdk.
+2. Imported cloud speech and cloud text recognition.
+3. Added my project ID (didnt include for security purposes). 
+4. Added my link for audio file and ran program successfully. 
 
 - output for speech to text 
 ```python
@@ -25,18 +25,122 @@ the stale smell of old beer lingers it takes heat to bring out the odor
 - See attached speech_rec.ipynb for output on image
 
 ### Steps 
-1. Intall the vision sdk 
-2. I tried using the code provided but had no luck 
-3. See error in speech_rec.ipynb
+1. Intalled the vision sdk. 
+2. I tried using the code provided but had no luck.
+3. See error in speech_rec.ipynb.
 4. I tried enabling the vision api but it still would not work. 
-5. wasnt ssuccesful in getting this to work 
+5. Wasn't ssuccesful in getting this to work.
 
+```python
+{
+	"name": "PermissionDenied",
+	"message": "403 Cloud Vision API has not been used in project 1057398310658 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/vision.googleapis.com/overview?project=1057398310658 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry. [links {
+  description: \"Google developers console API activation\"
+  url: \"https://console.developers.google.com/apis/api/vision.googleapis.com/overview?project=1057398310658\"
+}
+, reason: \"SERVICE_DISABLED\"
+domain: \"googleapis.com\"
+metadata {
+  key: \"consumer\"
+  value: \"projects/1057398310658\"
+}
+metadata {
+  key: \"service\"
+  value: \"vision.googleapis.com\"
+}
+]",
+	"stack": "---------------------------------------------------------------------------
+_InactiveRpcError                         Traceback (most recent call last)
+/usr/local/lib/python3.10/dist-packages/google/api_core/grpc_helpers.py in error_remapped_callable(*args, **kwargs)
+     75         try:
+---> 76             return callable_(*args, **kwargs)
+     77         except grpc.RpcError as exc:
+
+/usr/local/lib/python3.10/dist-packages/grpc/_channel.py in __call__(self, request, timeout, metadata, credentials, wait_for_ready, compression)
+   1180         )
+-> 1181         return _end_unary_response_blocking(state, call, False, None)
+   1182 
+
+/usr/local/lib/python3.10/dist-packages/grpc/_channel.py in _end_unary_response_blocking(state, call, with_call, deadline)
+   1005     else:
+-> 1006         raise _InactiveRpcError(state)  # pytype: disable=not-instantiable
+   1007 
+
+_InactiveRpcError: <_InactiveRpcError of RPC that terminated with:
+\tstatus = StatusCode.PERMISSION_DENIED
+\tdetails = \"Cloud Vision API has not been used in project 1057398310658 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/vision.googleapis.com/overview?project=1057398310658 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.\"
+\tdebug_error_string = \"UNKNOWN:Error received from peer ipv4:172.217.214.95:443 {created_time:\"2024-11-01T16:59:57.584913147+00:00\", grpc_status:7, grpc_message:\"Cloud Vision API has not been used in project 1057398310658 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/vision.googleapis.com/overview?project=1057398310658 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.\"}\"
+>
+
+The above exception was the direct cause of the following exception:
+
+PermissionDenied                          Traceback (most recent call last)
+<ipython-input-58-049272be9d9e> in <cell line: 8>()
+      6 image = vision.Image(content=content)
+      7 
+----> 8 response = client.text_detection(image=image)
+      9 texts = response.text_annotations
+     10 print(\"Texts:\")
+
+/usr/local/lib/python3.10/dist-packages/google/cloud/vision_helpers/decorators.py in inner(self, image, max_results, retry, timeout, metadata, **kwargs)
+    110             copied_features[\"max_results\"] = max_results
+    111         request = dict(image=image, features=[copied_features], **kwargs)
+--> 112         response = self.annotate_image(
+    113             request, retry=retry, timeout=timeout, metadata=metadata
+    114         )
+
+/usr/local/lib/python3.10/dist-packages/google/cloud/vision_helpers/__init__.py in annotate_image(self, request, retry, timeout, metadata)
+     74         elif len(request.features) == 0:
+     75             request.features = self._get_all_features()
+---> 76         r = self.batch_annotate_images(
+     77             requests=[request], retry=retry, timeout=timeout, metadata=metadata
+     78         )
+
+/usr/local/lib/python3.10/dist-packages/google/cloud/vision_v1/services/image_annotator/client.py in batch_annotate_images(self, request, requests, retry, timeout, metadata)
+    800 
+    801         # Send the request.
+--> 802         response = rpc(
+    803             request,
+    804             retry=retry,
+
+/usr/local/lib/python3.10/dist-packages/google/api_core/gapic_v1/method.py in __call__(self, timeout, retry, compression, *args, **kwargs)
+    129             kwargs[\"compression\"] = compression
+    130 
+--> 131         return wrapped_func(*args, **kwargs)
+    132 
+    133 
+
+/usr/local/lib/python3.10/dist-packages/google/api_core/grpc_helpers.py in error_remapped_callable(*args, **kwargs)
+     76             return callable_(*args, **kwargs)
+     77         except grpc.RpcError as exc:
+---> 78             raise exceptions.from_grpc_error(exc) from exc
+     79 
+     80     return error_remapped_callable
+
+PermissionDenied: 403 Cloud Vision API has not been used in project 1057398310658 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/vision.googleapis.com/overview?project=1057398310658 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry. [links {
+  description: \"Google developers console API activation\"
+  url: \"https://console.developers.google.com/apis/api/vision.googleapis.com/overview?project=1057398310658\"
+}
+, reason: \"SERVICE_DISABLED\"
+domain: \"googleapis.com\"
+metadata {
+  key: \"consumer\"
+  value: \"projects/1057398310658\"
+}
+metadata {
+  key: \"service\"
+  value: \"vision.googleapis.com\"
+}
+]"
+}
+
+```
 ### Azure 
 
 - Was able to create a key and get sample code running.
-- Tried both the image to object extraction and the image to text extraction 
-- There is ai_vision.py ocr.py
-- Output of ocr.py
+- Tried both the image to object extraction and the image to text extraction .
+- There is ai_vision.py and ocr.py.
+- Output of ocr.py.
 
 ```python
 ===== Read File - remote =====
@@ -144,9 +248,9 @@ Image analysis results:
 
 ## 3. Overall thoughts 
 
-- Ran into some road blocks trying to find documentation for both google and azure apis
-- Because I could get the vision for GCP to work cant really make comparison
-- I do think that GCP is more user friendly and it was easier to find documentation than Azure
+- Ran into some road blocks trying to find documentation for both google and azure API's.
+- Because I could get the vision for GCP to work cant really make comparison.
+- I do think that GCP is more user friendly and it was easier to find documentation than Azure.
 
 
 
